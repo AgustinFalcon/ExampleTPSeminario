@@ -1,20 +1,26 @@
-package com.example.exampletpseminario
+package com.example.exampletpseminario.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exampletpseminario.databinding.ItemListRecyclerviewBinding
 import com.example.exampletpseminario.model.User
+import com.example.exampletpseminario.model.UserExample
 
 
-class ListAdapter(private val userList: List<User>) : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+class ListAdapter() : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+
+    private var userList = emptyList<User>()
+
 
     inner class ListViewHolder(private val binding: ItemListRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(user: User) {
-            binding.tvIdUser.text = user.id.toString()
-            binding.tvTitleUser.text = user.title
-            binding.tvSubTitleUser.text = user.description
+            binding.tvId.text = user.id.toString()
+            binding.tvFirstName.text = user.firstName
+            binding.tvLastName.text = user.lastName
+            binding.tvAge.text = user.age.toString()
         }
 
     }
@@ -34,6 +40,13 @@ class ListAdapter(private val userList: List<User>) : RecyclerView.Adapter<ListA
         val user = userList.get(position)
         holder.bind(user)
 
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(users: List<User>) {
+        this.userList = users
+        notifyDataSetChanged()
     }
 
 }
