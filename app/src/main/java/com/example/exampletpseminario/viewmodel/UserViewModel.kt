@@ -2,8 +2,12 @@ package com.example.exampletpseminario.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.exampletpseminario.model.User
 import com.example.exampletpseminario.repository.UserRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class UserViewModel : ViewModel() {
@@ -14,7 +18,29 @@ class UserViewModel : ViewModel() {
 
 
     fun insertUser(user: User) {
-        userRepository.insertUser(user = user)
+        viewModelScope.launch {
+            userRepository.insertUser(user = user)
+        }
+    }
+
+
+    fun updateUser(user: User) {
+        //CoroutineScope(Dispatchers.IO).launch {}
+        viewModelScope.launch {
+            userRepository.updateUser(user = user)
+        }
+    }
+
+    fun deleteUser(user: User) {
+        viewModelScope.launch {
+            userRepository.deleteUser(user = user)
+        }
+    }
+
+    fun deleteAllUsers() {
+        viewModelScope.launch {
+            userRepository.deleteAllUsers()
+        }
     }
 
 }

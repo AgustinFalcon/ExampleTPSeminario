@@ -7,14 +7,28 @@ import com.example.exampletpseminario.model.User
 
 class UserRepository {
 
+
+
     private val userDao = UserDB.getDatabase().userDao()
 
     val readAllData: LiveData<List<User>> = userDao.readAllData()
 
 
-    fun insertUser(user: User) {
+    suspend fun insertUser(user: User) {
         userDao.insertUser(user = user)
     }
 
+
+    suspend fun updateUser(user: User) {
+        userDao.updateUser(user = user)
+    }
+
+    suspend fun deleteUser(user: User) {
+        userDao.deleteUser(user = user)
+    }
+
+    suspend fun deleteAllUsers() {
+        userDao.deleteAll()
+    }
 
 }
